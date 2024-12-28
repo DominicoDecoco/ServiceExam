@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dd0828a07a5b4164be13c58679283d11" Name="Diagram1">
+        <EntityTypeShape EntityType="ExamPerfectModel.Application" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamPerfectModel.Feedback" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamPerfectModel.RoleUser" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamPerfectModel.ServiceProvided" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamPerfectModel.TypeService" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamPerfectModel.UserService" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="ExamPerfectModel.FK__Applicati__Maste__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamPerfectModel.FK__Applicati__SerTy__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamPerfectModel.FK__Feedback__Servic__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamPerfectModel.FK__UserServi__UserR__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamPerfectModel.FK__ServicePr__Maste__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamPerfectModel.FK__ServicePr__Provi__300424B4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

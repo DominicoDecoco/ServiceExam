@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ExamPerfectModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="IDApplication" />
+          </Key>
+          <Property Name="IDApplication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="150" />
+          <Property Name="PhoneClient" Type="nvarchar" MaxLength="11" />
+          <Property Name="SerType" Type="int" />
+          <Property Name="MasterService" Type="int" />
+          <Property Name="DateRecord" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="IDFeedback" />
+          </Key>
+          <Property Name="IDFeedback" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceType" Type="int" />
+          <Property Name="Mark" Type="int" />
+          <Property Name="TextFeedback" Type="text" />
+        </EntityType>
+        <EntityType Name="RoleUser">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameRole" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="ServiceProvided">
+          <Key>
+            <PropertyRef Name="IDServiceProvided" />
+          </Key>
+          <Property Name="IDServiceProvided" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MasterService" Type="int" />
+          <Property Name="ProvidedServiceType" Type="int" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="TypeService">
+          <Key>
+            <PropertyRef Name="IDTypeService" />
+          </Key>
+          <Property Name="IDTypeService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTypeService" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="UserService">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginUser" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserRole" Type="int" />
+        </EntityType>
+        <Association Name="FK__Applicati__Maste__2C3393D0">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="MasterService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__SerTy__2B3F6F97">
+          <End Role="TypeService" Type="Self.TypeService" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeService">
+              <PropertyRef Name="IDTypeService" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="SerType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Feedback__Servic__32E0915F">
+          <End Role="TypeService" Type="Self.TypeService" Multiplicity="0..1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeService">
+              <PropertyRef Name="IDTypeService" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="ServiceType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ServicePr__Maste__2F10007B">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="0..1" />
+          <End Role="ServiceProvided" Type="Self.ServiceProvided" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="ServiceProvided">
+              <PropertyRef Name="MasterService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ServicePr__Provi__300424B4">
+          <End Role="TypeService" Type="Self.TypeService" Multiplicity="0..1" />
+          <End Role="ServiceProvided" Type="Self.ServiceProvided" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeService">
+              <PropertyRef Name="IDTypeService" />
+            </Principal>
+            <Dependent Role="ServiceProvided">
+              <PropertyRef Name="ProvidedServiceType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserServi__UserR__267ABA7A">
+          <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="0..1" />
+          <End Role="UserService" Type="Self.UserService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleUser">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="UserService">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ExamPerfectModelContainer">
+          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleUser" EntityType="Self.RoleUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceProvided" EntityType="Self.ServiceProvided" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeService" EntityType="Self.TypeService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserService" EntityType="Self.UserService" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Applicati__Maste__2C3393D0" Association="Self.FK__Applicati__Maste__2C3393D0">
+            <End Role="UserService" EntitySet="UserService" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__SerTy__2B3F6F97" Association="Self.FK__Applicati__SerTy__2B3F6F97">
+            <End Role="TypeService" EntitySet="TypeService" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Feedback__Servic__32E0915F" Association="Self.FK__Feedback__Servic__32E0915F">
+            <End Role="TypeService" EntitySet="TypeService" />
+            <End Role="Feedback" EntitySet="Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ServicePr__Maste__2F10007B" Association="Self.FK__ServicePr__Maste__2F10007B">
+            <End Role="UserService" EntitySet="UserService" />
+            <End Role="ServiceProvided" EntitySet="ServiceProvided" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ServicePr__Provi__300424B4" Association="Self.FK__ServicePr__Provi__300424B4">
+            <End Role="TypeService" EntitySet="TypeService" />
+            <End Role="ServiceProvided" EntitySet="ServiceProvided" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserServi__UserR__267ABA7A" Association="Self.FK__UserServi__UserR__267ABA7A">
+            <End Role="RoleUser" EntitySet="RoleUser" />
+            <End Role="UserService" EntitySet="UserService" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamPerfectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="IDApplication" />
+          </Key>
+          <Property Name="IDApplication" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneClient" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="SerType" Type="Int32" />
+          <Property Name="MasterService" Type="Int32" />
+          <Property Name="DateRecord" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserService" Relationship="Self.FK__Applicati__Maste__2C3393D0" FromRole="Applications" ToRole="UserService" />
+          <NavigationProperty Name="TypeService" Relationship="Self.FK__Applicati__SerTy__2B3F6F97" FromRole="Applications" ToRole="TypeService" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="IDFeedback" />
+          </Key>
+          <Property Name="IDFeedback" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceType" Type="Int32" />
+          <Property Name="Mark" Type="Int32" />
+          <Property Name="TextFeedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TypeService" Relationship="Self.FK__Feedback__Servic__32E0915F" FromRole="Feedback" ToRole="TypeService" />
+        </EntityType>
+        <EntityType Name="RoleUser">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRole" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserServices" Relationship="Self.FK__UserServi__UserR__267ABA7A" FromRole="RoleUser" ToRole="UserService" />
+        </EntityType>
+        <EntityType Name="ServiceProvided">
+          <Key>
+            <PropertyRef Name="IDServiceProvided" />
+          </Key>
+          <Property Name="IDServiceProvided" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MasterService" Type="Int32" />
+          <Property Name="ProvidedServiceType" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="UserService" Relationship="Self.FK__ServicePr__Maste__2F10007B" FromRole="ServiceProvided" ToRole="UserService" />
+          <NavigationProperty Name="TypeService" Relationship="Self.FK__ServicePr__Provi__300424B4" FromRole="ServiceProvided" ToRole="TypeService" />
+        </EntityType>
+        <EntityType Name="TypeService">
+          <Key>
+            <PropertyRef Name="IDTypeService" />
+          </Key>
+          <Property Name="IDTypeService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTypeService" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__SerTy__2B3F6F97" FromRole="TypeService" ToRole="Applications" />
+          <NavigationProperty Name="Feedbacks" Relationship="Self.FK__Feedback__Servic__32E0915F" FromRole="TypeService" ToRole="Feedback" />
+          <NavigationProperty Name="ServiceProvideds" Relationship="Self.FK__ServicePr__Provi__300424B4" FromRole="TypeService" ToRole="ServiceProvided" />
+        </EntityType>
+        <EntityType Name="UserService">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserRole" Type="Int32" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__Maste__2C3393D0" FromRole="UserService" ToRole="Applications" />
+          <NavigationProperty Name="RoleUser" Relationship="Self.FK__UserServi__UserR__267ABA7A" FromRole="UserService" ToRole="RoleUser" />
+          <NavigationProperty Name="ServiceProvideds" Relationship="Self.FK__ServicePr__Maste__2F10007B" FromRole="UserService" ToRole="ServiceProvided" />
+        </EntityType>
+        <Association Name="FK__Applicati__Maste__2C3393D0">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="MasterService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__SerTy__2B3F6F97">
+          <End Role="TypeService" Type="Self.TypeService" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeService">
+              <PropertyRef Name="IDTypeService" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="SerType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Feedback__Servic__32E0915F">
+          <End Role="TypeService" Type="Self.TypeService" Multiplicity="0..1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeService">
+              <PropertyRef Name="IDTypeService" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="ServiceType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserServi__UserR__267ABA7A">
+          <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="0..1" />
+          <End Role="UserService" Type="Self.UserService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleUser">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="UserService">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ServicePr__Maste__2F10007B">
+          <End Role="UserService" Type="Self.UserService" Multiplicity="0..1" />
+          <End Role="ServiceProvided" Type="Self.ServiceProvided" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserService">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="ServiceProvided">
+              <PropertyRef Name="MasterService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ServicePr__Provi__300424B4">
+          <End Role="TypeService" Type="Self.TypeService" Multiplicity="0..1" />
+          <End Role="ServiceProvided" Type="Self.ServiceProvided" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeService">
+              <PropertyRef Name="IDTypeService" />
+            </Principal>
+            <Dependent Role="ServiceProvided">
+              <PropertyRef Name="ProvidedServiceType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamPerfectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
+          <EntitySet Name="RoleUsers" EntityType="Self.RoleUser" />
+          <EntitySet Name="ServiceProvideds" EntityType="Self.ServiceProvided" />
+          <EntitySet Name="TypeServices" EntityType="Self.TypeService" />
+          <EntitySet Name="UserServices" EntityType="Self.UserService" />
+          <AssociationSet Name="FK__Applicati__Maste__2C3393D0" Association="Self.FK__Applicati__Maste__2C3393D0">
+            <End Role="UserService" EntitySet="UserServices" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__SerTy__2B3F6F97" Association="Self.FK__Applicati__SerTy__2B3F6F97">
+            <End Role="TypeService" EntitySet="TypeServices" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Feedback__Servic__32E0915F" Association="Self.FK__Feedback__Servic__32E0915F">
+            <End Role="TypeService" EntitySet="TypeServices" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserServi__UserR__267ABA7A" Association="Self.FK__UserServi__UserR__267ABA7A">
+            <End Role="RoleUser" EntitySet="RoleUsers" />
+            <End Role="UserService" EntitySet="UserServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ServicePr__Maste__2F10007B" Association="Self.FK__ServicePr__Maste__2F10007B">
+            <End Role="UserService" EntitySet="UserServices" />
+            <End Role="ServiceProvided" EntitySet="ServiceProvideds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ServicePr__Provi__300424B4" Association="Self.FK__ServicePr__Provi__300424B4">
+            <End Role="TypeService" EntitySet="TypeServices" />
+            <End Role="ServiceProvided" EntitySet="ServiceProvideds" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ExamPerfectModelContainer" CdmEntityContainer="ExamPerfectEntities">
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="ExamPerfectModel.Application">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="IDApplication" ColumnName="IDApplication" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="PhoneClient" ColumnName="PhoneClient" />
+                <ScalarProperty Name="SerType" ColumnName="SerType" />
+                <ScalarProperty Name="MasterService" ColumnName="MasterService" />
+                <ScalarProperty Name="DateRecord" ColumnName="DateRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="ExamPerfectModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="IDFeedback" ColumnName="IDFeedback" />
+                <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="TextFeedback" ColumnName="TextFeedback" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleUsers">
+            <EntityTypeMapping TypeName="ExamPerfectModel.RoleUser">
+              <MappingFragment StoreEntitySet="RoleUser">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceProvideds">
+            <EntityTypeMapping TypeName="ExamPerfectModel.ServiceProvided">
+              <MappingFragment StoreEntitySet="ServiceProvided">
+                <ScalarProperty Name="IDServiceProvided" ColumnName="IDServiceProvided" />
+                <ScalarProperty Name="MasterService" ColumnName="MasterService" />
+                <ScalarProperty Name="ProvidedServiceType" ColumnName="ProvidedServiceType" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeServices">
+            <EntityTypeMapping TypeName="ExamPerfectModel.TypeService">
+              <MappingFragment StoreEntitySet="TypeService">
+                <ScalarProperty Name="IDTypeService" ColumnName="IDTypeService" />
+                <ScalarProperty Name="NameTypeService" ColumnName="NameTypeService" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserServices">
+            <EntityTypeMapping TypeName="ExamPerfectModel.UserService">
+              <MappingFragment StoreEntitySet="UserService">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

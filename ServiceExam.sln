@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceExam", "ServiceExam\ServiceExam.csproj", "{DEB0351F-7484-4476-B09D-E8F71613261C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEB0351F-7484-4476-B09D-E8F71613261C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB0351F-7484-4476-B09D-E8F71613261C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB0351F-7484-4476-B09D-E8F71613261C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB0351F-7484-4476-B09D-E8F71613261C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB9CD656-00E8-4B75-B625-26AEFCEA5AB2}
+	EndGlobalSection
+EndGlobal
